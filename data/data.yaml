@@ -1,0 +1,34 @@
+# 正常登陆用例
+test_login_001:
+  phone: "15077632873"
+  passwd: "xzynzyn19971012"
+  exp: "梦客"
+
+# 账号前输入一个空格，登陆成功
+test_login_002:
+  phone: " 15077632873"
+  passwd: "xzynzyn19971012"
+  exp: "梦客"
+
+# 账号末尾加一个空格，登陆成功
+test_login_003:
+  phone: "15077632873 "
+  passwd: "xzynzyn19971012"
+  #  exp: "梦客仙"  # 故意改成失败，为了测试断言失败截图的功能
+  exp: "梦客"
+
+# 输入未注册的手机号
+test_login_004:
+  phone: "15077632870"
+  passwd: "xzynzyn"
+  #  因为输入错误账号密码的时候，会有toast提示框，我们在断言的时候回先调用base文件中的get_toast()方法，需要你传入提示什么内容后
+  #  才可以获取toast提示框的内容，然后在和断言exp比较，所以需要加一个toast
+  toast: "请您先进行注册"
+  exp: "账号还未注册，请您先进行注册"
+
+# 输入错误的密码
+test_login_005:
+  phone: "15077632873"
+  passwd: "xzynzyn"
+  toast: "错误"
+  exp: "账号或密码错误"
